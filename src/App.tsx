@@ -182,24 +182,26 @@ const App: React.FC = () => {
           />
         ) : (
           /* Dashboard View: Scanner */
-          <div className="flex-1 flex flex-col p-6 overflow-hidden">
-            {/* Nav Header */}
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex items-center gap-4 bg-surface p-4 rounded-2xl border border-white/5 pr-8">
-                <div className={`p-3 rounded-xl ${currentVehicle.vehicle_type === 'bus' ? 'bg-blue-500/10 text-blue-400' : 'bg-orange-500/10 text-orange-400'}`}>
-                  <Scan size={24} />
+          <div className="flex-1 flex flex-col p-4 md:p-6 overflow-hidden pt-8 md:pt-6">
+            {/* Nav Header - Unified Bar */}
+            <div className="flex items-center justify-between gap-4 bg-surface p-3 md:p-4 rounded-[2rem] border border-white/5 mb-6 shadow-xl">
+              <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+                <div className={`p-3 rounded-2xl shrink-0 ${currentVehicle.vehicle_type === 'bus' ? 'bg-blue-500/10 text-blue-400' : 'bg-orange-500/10 text-orange-400'}`}>
+                  <Scan size={20} />
                 </div>
-                <div>
-                  <h2 className="text-xl font-bold">{currentVehicle.serial_number}</h2>
-                  <div className="flex items-center gap-2 text-text-muted text-xs">
-                    <MapPin size={12} />
-                    <span>{currentVehicle.route?.route_name || 'Tanpa Rute Terpilih'}</span>
+                <div className="min-w-0">
+                  <h2 className="text-lg md:text-xl font-bold truncate">{currentVehicle.serial_number}</h2>
+                  <div className="flex items-center gap-1.5 text-text-muted text-[10px] md:text-xs">
+                    <MapPin size={10} />
+                    <span className="truncate">{currentVehicle.route?.route_name || 'Tanpa Rute Terpilih'}</span>
                   </div>
                 </div>
               </div>
+              
               <button
                 onClick={handleLogout}
-                className="p-4 bg-error/10 text-error rounded-2xl border border-error/20 hover:bg-error/20 transition-all flex items-center gap-2 font-bold"
+                className="p-3 md:p-4 bg-error/10 text-error rounded-2xl border border-error/20 hover:bg-error/20 transition-all flex items-center justify-center aspect-square md:aspect-auto md:gap-2 font-bold shrink-0"
+                title="Keluar"
               >
                 <LogOut size={20} />
                 <span className="hidden md:inline">Keluar</span>

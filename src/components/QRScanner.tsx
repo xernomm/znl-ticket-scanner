@@ -87,12 +87,14 @@ const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isScanning }) => {
       {/* Visual Overlay */}
       {isScanning && !hasError && (
         <div className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center">
-          <div className="w-64 h-64 border-2 border-primary rounded-[2rem] relative shadow-[0_0_0_2000px_rgba(0,0,0,0.5)]">
+          <div className="w-64 h-64 border-2 border-primary/50 md:border-primary rounded-[2rem] relative shadow-[0_0_0_2000px_rgba(0,0,0,0.6)]">
             <div className="absolute top-0 left-[10%] w-[80%] h-1 bg-primary shadow-[0_0_15px_#6366f1] animate-[scanMove_2.5s_infinite_linear]"></div>
           </div>
-          <p className="mt-8 text-white/80 font-medium px-6 py-2 bg-black/40 backdrop-blur-md rounded-full border border-white/10">
-            Arahkan kamera ke Barcode Tiket
-          </p>
+          <div className="absolute bottom-10 left-0 right-0 flex justify-center px-6">
+            <p className="text-white/90 text-sm font-medium px-6 py-3 bg-black/60 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl">
+              Arahkan kamera ke Barcode Tiket
+            </p>
+          </div>
         </div>
       )}
 
