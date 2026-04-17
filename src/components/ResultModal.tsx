@@ -41,26 +41,39 @@ const ResultModal: React.FC<ResultModalProps> = ({ isOpen, result, onClose }) =>
         </p>
 
         {result.data && success && (
-          <div className="bg-bg/50 border border-white/5 rounded-2xl p-6 mb-8 flex flex-col gap-4">
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-text-muted flex items-center gap-2"><User size={14}/> Penumpang</span>
-              <span className="text-white font-bold">{result.data.passenger?.name || 'Unknown'}</span>
+          <div className="bg-bg/50 border border-white/5 rounded-2xl p-6 mb-8 flex flex-col gap-6">
+            <div className="flex flex-col gap-1.5 align-start text-left">
+              <span className="text-text-muted text-xs flex items-center gap-2 px-1">
+                <User size={14} className="text-primary"/> Penumpang
+              </span>
+              <span className="text-white font-bold text-lg pl-6">
+                {result.data.passenger?.name || 'Unknown'}
+              </span>
             </div>
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-text-muted flex items-center gap-2"><Zap size={14}/> Layanan</span>
-              <span className="text-white">{result.data.booking_type === 'single_booking' ? 'Langganan' : 'Public Transport'}</span>
-            </div>
-            <div className="border-t border-white/5 pt-4 flex flex-col gap-2">
-              <div className="flex justify-between text-xs">
-                <span className="text-text-muted">Pickup</span>
-                <span className="text-white text-right max-w-[60%]">{result.data.pickup}</span>
+            
+            <div className="border-t border-white/5 pt-4 flex flex-col gap-4">
+              <div className="flex flex-col gap-1 text-left">
+                <span className="text-text-muted text-[10px] uppercase tracking-wider px-1">Layanan</span>
+                <span className="text-white font-medium pl-6">
+                  {result.data.booking_type === 'single_booking' ? 'Langganan (Member)' : 'Public Transport / Reguler'}
+                </span>
               </div>
-              {result.data.dropoff && (
-                <div className="flex justify-between text-xs">
-                  <span className="text-text-muted">Dropoff</span>
-                  <span className="text-white text-right max-w-[60%]">{result.data.dropoff}</span>
+              
+              <div className="flex flex-col gap-1 text-left">
+                <span className="text-text-muted text-[10px] uppercase tracking-wider px-1">Detail Rute</span>
+                <div className="pl-6 flex flex-col gap-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-success"></span>
+                    <span className="text-white text-xs">{result.data.pickup}</span>
+                  </div>
+                  {result.data.dropoff && (
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-error"></span>
+                      <span className="text-white text-xs">{result.data.dropoff}</span>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           </div>
         )}

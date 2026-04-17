@@ -165,7 +165,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="h-screen flex text-text-main overflow-hidden bg-bg">
+    <div className="min-h-screen flex text-text-main overflow-y-auto bg-bg">
       {/* Sidebar for navigation and category filtering */}
       {!currentVehicle && (
         <Sidebar activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
