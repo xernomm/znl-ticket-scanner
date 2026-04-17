@@ -14,6 +14,16 @@ const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isScanning }) => {
   const startScanner = async () => {
     try {
       setHasError(false);
+
+      // Wait a bit for the DOM to be fully ready and sized
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      const element = document.getElementById("reader");
+      if (!element || element.clientWidth === 0) {
+        console.warn("Scanner element not ready or zero-width");
+        return;
+      }
+
       if (!qrRef.current) {
         qrRef.current = new Html5Qrcode("reader");
       }
@@ -30,7 +40,10 @@ const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isScanning }) => {
       }
     } catch (err) {
       console.error("Scanner failed to start", err);
-      setHasError(true);
+      // Only show error if it's a real failure, not just a timing issue
+      if (document.getElementById("reader")) {
+        setHasError(true);
+      }
     }
   };
 
