@@ -35,8 +35,8 @@ const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isScanning }) => {
       
       if (qrRef.current && !qrRef.current.isScanning) {
         await qrRef.current.start(
-          { facingMode: "environment" }, // Fixed: should be string or object with exact
-          { fps: 10, qrbox: { width: 250, height: 250 } },
+          { facingMode: "environment" },
+          { fps: 10, qrbox: { width: 256, height: 256 } },
           (decodedText) => {
             onScanSuccess(decodedText);
           },
@@ -86,12 +86,12 @@ const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isScanning }) => {
       
       {/* Visual Overlay */}
       {isScanning && !hasError && (
-        <div className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center">
-          <div className="w-64 h-64 border-2 border-primary/50 md:border-primary rounded-[2rem] relative shadow-[0_0_0_2000px_rgba(0,0,0,0.6)]">
-            <div className="absolute top-0 left-[10%] w-[80%] h-1 bg-primary shadow-[0_0_15px_#6366f1] animate-[scanMove_2.5s_infinite_linear]"></div>
+        <div className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center pt-8">
+          <div className="w-65 h-65 border-4 border-primary/40 md:border-primary rounded-[2.5rem] relative shadow-[0_0_0_2000px_rgba(0,0,0,0.6)]">
+            <div className="absolute top-0 left-[10%] w-[80%] h-1 bg-primary shadow-[0_0_20px_#6366f1] animate-[scanMove_2.5s_infinite_linear]"></div>
           </div>
-          <div className="absolute bottom-10 left-0 right-0 flex justify-center px-6">
-            <p className="text-white/90 text-sm font-medium px-6 py-3 bg-black/60 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl">
+          <div className="absolute bottom-12 left-0 right-0 flex justify-center px-6">
+            <p className="text-white/90 text-sm font-medium px-6 py-3 bg-black/80 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl">
               Arahkan kamera ke Barcode Tiket
             </p>
           </div>

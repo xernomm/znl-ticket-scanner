@@ -182,15 +182,15 @@ const App: React.FC = () => {
           />
         ) : (
           /* Dashboard View: Scanner */
-          <div className="flex-1 flex flex-col p-4 md:p-6 overflow-hidden pt-8 md:pt-6">
+          <div className="flex-1 flex flex-col p-4 md:p-6 overflow-hidden pt-12 md:pt-6">
             {/* Nav Header - Unified Bar */}
-            <div className="flex items-center justify-between gap-4 bg-surface p-3 md:p-4 rounded-[2rem] border border-white/5 mb-6 shadow-xl">
-              <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-4 bg-surface p-3 md:p-4 rounded-[2.5rem] border border-white/10 mb-8 shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+              <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0 ml-1">
                 <div className={`p-3 rounded-2xl shrink-0 ${currentVehicle.vehicle_type === 'bus' ? 'bg-blue-500/10 text-blue-400' : 'bg-orange-500/10 text-orange-400'}`}>
                   <Scan size={20} />
                 </div>
                 <div className="min-w-0">
-                  <h2 className="text-lg md:text-xl font-bold truncate">{currentVehicle.serial_number}</h2>
+                  <h2 className="text-lg md:text-xl font-bold truncate tracking-tight">{currentVehicle.serial_number}</h2>
                   <div className="flex items-center gap-1.5 text-text-muted text-[10px] md:text-xs">
                     <MapPin size={10} />
                     <span className="truncate">{currentVehicle.route?.route_name || 'Tanpa Rute Terpilih'}</span>
@@ -198,9 +198,11 @@ const App: React.FC = () => {
                 </div>
               </div>
               
+              <div className="h-10 w-px bg-white/5 hidden md:block"></div>
+
               <button
                 onClick={handleLogout}
-                className="p-3 md:p-4 bg-error/10 text-error rounded-2xl border border-error/20 hover:bg-error/20 transition-all flex items-center justify-center aspect-square md:aspect-auto md:gap-2 font-bold shrink-0"
+                className="p-3 md:p-4 bg-error/10 text-error rounded-2xl border border-error/20 hover:bg-error/30 transition-all flex items-center justify-center aspect-square md:aspect-auto md:gap-2 font-bold shrink-0 mr-1"
                 title="Keluar"
               >
                 <LogOut size={20} />
