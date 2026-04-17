@@ -212,8 +212,16 @@ const App: React.FC = () => {
 
             {/* Main Scanner Section */}
             <div className="flex-1 flex flex-col md:flex-row gap-6 overflow-hidden">
-              <div className="flex-[2] relative min-h-[300px]">
-                <QRScanner onScanSuccess={onScanSuccess} isScanning={isScanning} />
+              <div className="flex-[2] flex flex-col gap-4">
+                <div className="relative flex-1 min-h-[350px]">
+                  <QRScanner onScanSuccess={onScanSuccess} isScanning={isScanning} />
+                </div>
+                {/* Instruction Text below scanner box */}
+                <div className="flex justify-center -mt-8 md:mt-0 relative z-10">
+                  <div className="bg-black/80 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-2xl shadow-2xl">
+                    <p className="text-white font-medium text-sm">Arahkan kamera ke Barcode Tiket</p>
+                  </div>
+                </div>
               </div>
 
               {/* Manual Input Panel */}
