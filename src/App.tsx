@@ -248,7 +248,7 @@ const App: React.FC = () => {
       <ResultModal
         isOpen={!!scanResult}
         result={scanResult}
-        onClose={() => { setScanResult(null); setIsScanning(true); }}
+        onClose={() => { setScanResult(null); setTimeout(() => setIsScanning(true), 150); }}
       />
 
       {/* Global CSS transition for pages */}
