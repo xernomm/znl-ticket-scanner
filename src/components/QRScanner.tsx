@@ -10,9 +10,13 @@ interface QRScannerProps {
 const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isScanning }) => {
   const qrRef = useRef<Html5Qrcode | null>(null);
   const [hasError, setHasError] = React.useState(false);
+  const isTransitioning = useRef(false);
 
   const startScanner = async () => {
+    if (isTransitioning.current) return;
+    
     try {
+      isTransitioning.current = true;
       setHasError(false);
 
       // Wait a bit for the DOM to be fully ready and sized
@@ -21,6 +25,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isScanning }) => {
       const element = document.getElementById("reader");
       if (!element || element.clientWidth === 0) {
         console.warn("Scanner element not ready or zero-width");
+        isTransitioning.current = false;
         return;
       }
 
@@ -30,7 +35,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isScanning }) => {
       
       if (qrRef.current && !qrRef.current.isScanning) {
         await qrRef.current.start(
-          { facingMode: { ideal: "environment" } },
+          { facingMode: "environment" }, // Fixed: should be string or object with exact
           { fps: 10, qrbox: { width: 250, height: 250 } },
           (decodedText) => {
             onScanSuccess(decodedText);
@@ -40,21 +45,33 @@ const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isScanning }) => {
       }
     } catch (err) {
       console.error("Scanner failed to start", err);
-      // Only show error if it's a real failure, not just a timing issue
       if (document.getElementById("reader")) {
         setHasError(true);
       }
+    } finally {
+      isTransitioning.current = false;
     }
   };
 
   useEffect(() => {
-    if (isScanning) {
-      startScanner();
-    } else {
-      if (qrRef.current && qrRef.current.isScanning) {
-        qrRef.current.stop().catch(e => console.warn(e));
+    const toggleScanner = async () => {
+      if (isScanning) {
+        await startScanner();
+      } else {
+        if (qrRef.current && qrRef.current.isScanning && !isTransitioning.current) {
+          try {
+            isTransitioning.current = true;
+            await qrRef.current.stop();
+          } catch (e) {
+            console.warn(e);
+          } finally {
+            isTransitioning.current = false;
+          }
+        }
       }
-    }
+    };
+
+    toggleScanner();
 
     return () => {
       if (qrRef.current && qrRef.current.isScanning) {
